@@ -1,14 +1,22 @@
 terraform {
   required_providers {
+    kubernetes = {
+      source  = "hashicorp/kubernetes"
+      version = "2.22.0"
+    }
+  }
+
+  required_providers {
     helm = {
-      source = "hashicorp/helm"
+      source  = "hashicorp/helm"
       version = "2.10.1"
     }
   }
+
 }
 
 provider "kubernetes" {
-  config_path    = "~/.kube/config"
+  config_path = "~/.kube/config"
 }
 
 provider "helm" {
@@ -27,6 +35,6 @@ module "cni" {
 }
 
 module "csi" {
-  depends_on = [ module.cni ]
-  source = "./modules/csi"
+  depends_on = [module.cni]
+  source     = "./modules/csi"
 }
