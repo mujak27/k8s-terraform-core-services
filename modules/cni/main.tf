@@ -1,7 +1,7 @@
 # CNI - Ingress
 resource "kubernetes_config_map" "bgp_config_map" {
   metadata {
-    name = "bgp-config"
+    name      = "bgp-config"
     namespace = "kube-system"
   }
 
@@ -11,14 +11,14 @@ resource "kubernetes_config_map" "bgp_config_map" {
 }
 
 resource "helm_release" "cilium" {
-  depends_on = [ kubernetes_config_map.bgp_config_map ]
+  depends_on = [kubernetes_config_map.bgp_config_map]
 
-  name       = "cilium"
+  name      = "cilium"
   namespace = "kube-system"
-  version = "1.14.0"
+  version   = "1.14.0"
 
-  repository = "https://helm.cilium.io"
-  chart      = "cilium"
+  repository       = "https://helm.cilium.io"
+  chart            = "cilium"
   create_namespace = true
 
   set {
@@ -37,27 +37,27 @@ resource "helm_release" "cilium" {
   }
 
   set {
-    name = "ingressController.enabled"
+    name  = "ingressController.enabled"
     value = true
   }
 
   set {
-    name = "ingressController.loadbalancerMode"
+    name  = "ingressController.loadbalancerMode"
     value = "dedicated"
   }
 
   set {
-    name = "kubeProxyReplacement"
+    name  = "kubeProxyReplacement"
     value = "strict"
   }
 
   set {
-    name = "k8sServiceHost"
+    name  = "k8sServiceHost"
     value = var.k8s.serviceHost
   }
 
   set {
-    name = "k8sServicePort"
+    name  = "k8sServicePort"
     value = var.k8s.servicePort
   }
 }
