@@ -1,4 +1,3 @@
-```markdown
 # Kubernetes Core Service Configuration Automation
 
 ## Overview
@@ -17,4 +16,3 @@ Follow these steps to make use of this automation script for your Kubernetes Loa
      ```
      terraform apply
      ```
-```
